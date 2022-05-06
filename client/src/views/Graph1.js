@@ -1,41 +1,41 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import * as axios from 'axios';
+import { useState, useLayoutEffect } from "react";
+import { useNavigate } from 'react-router';
 
 //const pythonScript = require('./services/python.service');
 
 
 function Graph1() {
 
-/*     const Dropdown = ({ label, value, options, onChange }) => {
-        return (
-            <label>
-                {label}
-                <select value={value} onChange={onChange}>
-                    {options.map((option, index) => (
-                        <option key={index} value={option}>{option}</option>
-                    ))}
-                </select>
-            </label>
-        );
-    };
-    
-    const [userData, setUserData] = useState({});
-    
-    // Hook called upon loading the component
-    useEffect(() => {
-        async function fetchData() {
-            // GET request using axios inside useEffect React hook
-            const response = await axios.get('http://localhost:8080/login')
-            // console.log('response: ', response);
-            if (response.data) {
-                setUserData(response.data)
-            }
+    const [errorMessage, setErrorMessage] = useState("")
+    let navigate = useNavigate();
+
+    async function script1(e) {
+        e.preventDefault()
+
+        const form = e.target;
+        const city = {
+            city: form[0].value
         }
-        fetchData();
-    }, []); */
+
+        try {
+            const res = await fetch("http://localhost:8080/python", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify(city)
+            })
+            const data = await res.json()
+            navigate('/type')
+            setErrorMessage(data.message)
+        } catch (err) {
+            setErrorMessage(err)
+        }
+    }
+
 
     return (
         <body>
@@ -57,17 +57,15 @@ function Graph1() {
                                             <label class="mb-2" for="username">Coupon use per region</label>
 
                                         </div>
-                                        <section>
+                                        <form onSubmit={(e) => script1(e)}>
                                             <div>
-                                                {/* <Dropdown label="Filter data: "></Dropdown> */}
                                                 <input type="text" ></input>
-                                                <button className='btn btn-primary' >Filter</button>
                                             </div>
-                                        </section>
 
-                                        <button type="submit" class="btn btn-primary ms-left" /*onClick={pythonScript.startPythonScript()}*/>
+                                        <button type="submit" class="btn btn-primary ms-left">
                                             Create
                                         </button>
+                                        </form>
 
                                         <button type="submit" class="btn btn-primary ms-auto">
                                             <Link to={"/login"}>Logout</Link>

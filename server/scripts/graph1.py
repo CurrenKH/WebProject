@@ -7,6 +7,7 @@ from pymongo import MongoClient
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
+import uuid
 
 myclient = MongoClient("mongodb://cfortier:cfortier123@cluster0-shard-00-00.gjdrt.mongodb.net:27017,cluster0-shard-00-01.gjdrt.mongodb.net:27017,cluster0-shard-00-02.gjdrt.mongodb.net:27017/test?authSource=admin&replicaSet=atlas-e0cio3-shard-0&readPreference=primary&ssl=true")
 
@@ -25,7 +26,7 @@ collection = mydb.sales
 
 df = pd.DataFrame(list(collection.aggregate([{ "$match": { "storeLocation": sys.argv[1] } },{"$group":{"_id" : "$couponUsed", "total" : {"$sum":1}}},{"$sort" : {"total" : -1}}])))
 
-display(df)
+#display(df)
 
 
 # In[4]:
@@ -49,4 +50,8 @@ plt.pie(y, labels = mylabels)
 plt.legend()
 #plt.show()
 
-plt.savefig('public/graphs/type111.jpg')
+random_id = str(uuid.uuid1())
+graphId = random_id + '.jpg'
+plt.savefig('public/graphs/type1/' + graphId)
+
+#plt.savefig('public/graphs/type111.jpg')

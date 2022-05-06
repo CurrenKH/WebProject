@@ -1,3 +1,12 @@
+import pymongo
+import pandas as pd
+from pymongo import MongoClient
+import numpy as np
+import matplotlib.pyplot as plt
+import sys
+import uuid
+
+
 # In[13]:
 
 
@@ -19,8 +28,8 @@ df4.columns = df4.columns.str.replace('_id', 'year')
 
 
 
-display(var2)
-display(df4)
+#display(var2)
+#display(df4)
 
 
 
@@ -40,8 +49,8 @@ df5.columns = df5.columns.str.replace('_id', 'year')
 
 
 
-display(var2)
-display(df5)
+#display(var2)
+#display(df5)
 
 
 var2 = "Online"
@@ -60,8 +69,8 @@ df6.columns = df6.columns.str.replace('_id', 'year')
 
 
 
-display(var2)
-display(df6)
+#display(var2)
+#display(df6)
 
 
 # In[14]:
@@ -79,7 +88,7 @@ result3 = pd.merge(result2, df6[["year", "online"]], on="year", how="right")
 # In[16]:
 
 
-display(result3)
+#display(result3)
 # In[1]:
 
 
@@ -112,4 +121,7 @@ fig = plt.figure()
 fig.patch.set_facecolor('xkcd:mint green')
 #plt.show()
 
-plt.savefig('public/graphs/type444.jpg')
+random_id = str(uuid.uuid1())
+graphId = random_id + '.jpg'
+plt.savefig('public/graphs/type4/' + graphId)
+#plt.savefig('public/graphs/type444.jpg')

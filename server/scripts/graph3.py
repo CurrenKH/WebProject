@@ -7,6 +7,7 @@ from pymongo import MongoClient
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
+import uuid
 
 myclient = MongoClient("mongodb://cfortier:cfortier123@cluster0-shard-00-00.gjdrt.mongodb.net:27017,cluster0-shard-00-01.gjdrt.mongodb.net:27017,cluster0-shard-00-02.gjdrt.mongodb.net:27017/test?authSource=admin&replicaSet=atlas-e0cio3-shard-0&readPreference=primary&ssl=true")
 
@@ -16,7 +17,8 @@ myclient = MongoClient("mongodb://cfortier:cfortier123@cluster0-shard-00-00.gjdr
 
 df3 = pd.DataFrame(list(collection.aggregate([{ "$match": { "storeLocation": "Denver" } },{"$unwind" : "$customer"},{"$group":{"_id" : "$customer.satisfaction", "total" : {"$sum": "$customer.satisfaction"}}},{"$sort" : {"_id" : 1}}])))
 df3.columns = df3.columns.str.replace('_id', 'rating')
-display(df3)
+
+#display(df3)
 
 
 # In[ ]:
@@ -31,4 +33,7 @@ plt.xlabel("Rating")
 plt.ylabel("Count")
 #plt.show
 
-plt.savefig('public/graphs/type333.jpg')
+random_id = str(uuid.uuid1())
+graphId = random_id + '.jpg'
+plt.savefig('public/graphs/type3/' + graphId)
+#plt.savefig('public/graphs/type333.jpg')

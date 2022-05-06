@@ -1,10 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
-import { Link } from 'react-router-dom'
 import { useState, useLayoutEffect } from "react";
+import { useNavigate } from 'react-router';
 
 function Register () {
 
+    let navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState("")
 
     async function handleRegister(e) {
@@ -28,22 +29,14 @@ function Register () {
                 body: JSON.stringify(user)
             })
             const data = await res.json()
+            navigate('/login')
             setErrorMessage(data.message)
         } catch (err) {
             setErrorMessage(err)
         }
     }
 
-    useLayoutEffect(() => {
-        fetch("/register", {
-            headers: {
-                "x-access-token": localStorage.getItem("token")
-            }
-        })
-        .then(res => res.json())
-        .then(data => data.isLoggedIn)
-        .catch(err => setErrorMessage(err)) 
-    }, [])
+
 
     return (
         <body>
@@ -57,6 +50,8 @@ function Register () {
                             <div class="card shadow-lg">
                                 <div class="card-body p-5">
                                     <h1 class="fs-4 card-title fw-bold mb-4 text-center">Register</h1>
+
+                                    
                                     <form onSubmit={(e) => handleRegister(e)}>
                                         <div class="mb-2">
                                             <label class="mb-2" for="username">Username</label>
@@ -90,10 +85,11 @@ function Register () {
                                         <div class="align-items-center d-flex">
                                             <button type="submit" class="btn btn-primary ms-auto" value="Register">
                                                 Signup
-                                            {/* <Link to={"/login"}>Signup</Link> */}
                                             </button>
                                         </div>
                                     </form>
+
+
                                 </div>
                             </div>
                             <div class="text-center mt-5 text-muted">

@@ -14,11 +14,13 @@ const collection = database.collection("users")
 async function createUser(user) {
     const username = user.username;
     const password = user.password;
+    const firstName = user.firstName;
+    const lastName = user.lastName;
 
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 
-    await collection.insertOne({ username, password: passwordHash });
+    await collection.insertOne({ username, password: passwordHash, firstName, lastName });
 
     return {
         status: 201,

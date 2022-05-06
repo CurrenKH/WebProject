@@ -9,11 +9,13 @@ const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 //const { database } = require('./database');
 const { createUser, signIn } = require('./services/user.service');
-
+const path = require('path');
+const { startPythonScript } = require('./services/python.service');
 
 const app = express()
 app.use(bodyParser.json());
 app.use(cors());
+app.use('/static', express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {
     res.send('Health check')
@@ -67,6 +69,15 @@ app.post('/login', async function(req, res) {
     const result = await signIn(user)
 
     res.send(result.body)
+})
+
+app.post('/python', async function(req, res) {
+
+    const city = req.body.city
+
+    const result = await startPythonScript(city)
+
+    res.send(result)
 })
 
 
