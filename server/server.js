@@ -9,8 +9,12 @@ const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 //const { database } = require('./database');
 const { createUser, signIn } = require('./services/user.service');
+const { getAllGraphs } = require('./services/graph.service');
 const path = require('path');
-const { startPythonScript } = require('./services/python.service');
+const { startPythonScript1 } = require('./services/python1.service');
+const { startPythonScript2 } = require('./services/python2.service');
+const { startPythonScript3 } = require('./services/python3.service');
+const { startPythonScript4 } = require('./services/python4.service');
 
 const app = express()
 app.use(bodyParser.json());
@@ -21,16 +25,9 @@ app.get('/', function(req, res) {
     res.send('Health check')
 })
 
-app.get('/graphs', function(req, res) {
+app.get('/graphs', async function(req, res) {
 
-    const graphData = [{
-        ID: 1,
-        name: "Graph 1",
-        graphType: "Bar",
-        creationDate: new Date(),
-        userId: 45,
-        graphId: "asdasd"
-    }]
+    const graphData = await getAllGraphs()
 
     res.send(graphData)
 })
@@ -71,25 +68,43 @@ app.post('/login', async function(req, res) {
     res.send(result.body)
 })
 
-app.post('/python', async function(req, res) {
+app.post('/python1', async function(req, res) {
 
     const city = req.body.city
 
-    const result = await startPythonScript(city)
+    const result = await startPythonScript1(city)
+
+    res.send(result)
+})
+
+app.post('/python2', async function(req, res) {
+
+    const method = req.body.method
+
+    const result = await startPythonScript2(method)
+
+    res.send(result)
+})
+
+app.post('/python3', async function(req, res) {
+
+    const city = req.body.city
+
+    const result = await startPythonScript3(city)
+
+    res.send(result)
+})
+
+app.post('/python4', async function(req, res) {
+
+    const usage = req.body.usage
+
+    const result = await startPythonScript4(usage)
 
     res.send(result)
 })
 
 
-
-
-
-
-
-
-/*app.listen(8080, () => {
-    console.log('Server listening on port 8080')
-})*/
 
 const PORT = 8080;
 connectCallback(() => {

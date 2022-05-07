@@ -38,9 +38,9 @@ function Graphs() {
                     <table className="table text-white">
                         <thead>
                             <tr>
-                                <th>Graph name</th>
-                                <th>Graph type</th>
-                                <th>Creation date</th>
+                                <th>Graph #</th>
+                                <th>Type</th>
+                                <th>Creation Date</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -48,12 +48,12 @@ function Graphs() {
                             {
                                 graphData.map((graph, index) => {
                                     return <tr key={index}>
-                                        <td>{graph.name}</td>
-                                        <td>{graph.graphType}</td>
-                                        <td>{graph.creationDate}</td>
+                                        <td>{graph.number}</td>
+                                        <td>{graph.type}</td>
+                                        <td>{graph.time}</td>
                                         <td>
                                             <button className="btn btn-primary px-3 mx-2">
-                                                <Link to={"/login?graphId=" + graph.graphId}>Open</Link>
+                                                <Link to={"/static/graphs/" + graph.graphId}>Open</Link>
                                             </button>
                                             <button className="btn btn-danger">
                                                 <Trash></Trash>

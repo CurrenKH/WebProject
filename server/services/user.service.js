@@ -1,8 +1,4 @@
 require('dotenv').config();
-//const express = require('express')
-//const { connectCallback, database } = require('./database');
-//const ObjectId = require('mongodb').ObjectId;
-//const morgan = require('morgan')
 const bodyParser = require('body-parser')
 
 const bcrypt = require('bcrypt');
@@ -65,6 +61,7 @@ async function signIn({ username, password }) {
             }
         }
     }
+
 
     module.exports = {
         createUser,

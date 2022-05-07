@@ -5,26 +5,26 @@ import { useState } from "react";
 import { useNavigate } from 'react-router';
 
 
-function Graph1() {
+function Graph4() {
 
     const [errorMessage, setErrorMessage] = useState("")
     let navigate = useNavigate();
 
-    async function script1(e) {
+    async function script4(e) {
         e.preventDefault()
 
         const form = e.target;
-        const city = {
-            city: form[0].value
+        const usage = {
+            usage: form[0].value
         }
 
         try {
-            const res = await fetch("http://localhost:8080/python1", {
+            const res = await fetch("http://localhost:8080/python4", {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json"
                 },
-                body: JSON.stringify(city)
+                body: JSON.stringify(usage)
             })
             const data = await res.json()
             navigate('/type')
@@ -59,14 +59,14 @@ function Graph1() {
                                     <section>
 
                                         <div class="mb-2">
-                                            <h4 class="mb-2" for="title">Region Name:</h4>
+                                            <h4 class="mb-2" for="title">Coupon Used?:</h4>
 
                                         </div>
-                                        <form onSubmit={(e) => script1(e)}>
+                                        <form onSubmit={(e) => script4(e)}>
                                             <div>
                                                 <input type="text" class="form-control"></input>
                                             </div>
-                                            <label class="mb-2">Choices: Denver, Seattle, London, Austin, New York, San Diego</label>
+                                            <label class="mb-2">Choices: True, False</label>
                                             <div class="align-items-center d-flex mb-3">
                                                 <button type="submit" class="btn btn-primary ms-auto my-2">
                                                     Create
@@ -90,4 +90,4 @@ function Graph1() {
     );
 }
 
-export default Graph1;
+export default Graph4;

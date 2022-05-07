@@ -43,7 +43,7 @@ function SelectType() {
                                                     <div class="col-md-6"></div>
 
                                                     <a href="http://localhost:3000/graph2">
-                                                        <img src="https://i.imgur.com/lLrEigb.jpg" width="360"></img>
+                                                        <img src="https://i.imgur.com/xVnw8VP.jpg" width="360"></img>
                                                     </a>
 
                                                 </div>

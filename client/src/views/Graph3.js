@@ -5,12 +5,12 @@ import { useState } from "react";
 import { useNavigate } from 'react-router';
 
 
-function Graph1() {
+function Graph3() {
 
     const [errorMessage, setErrorMessage] = useState("")
     let navigate = useNavigate();
 
-    async function script1(e) {
+    async function script3(e) {
         e.preventDefault()
 
         const form = e.target;
@@ -19,7 +19,7 @@ function Graph1() {
         }
 
         try {
-            const res = await fetch("http://localhost:8080/python1", {
+            const res = await fetch("http://localhost:8080/python3", {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json"
@@ -62,7 +62,7 @@ function Graph1() {
                                             <h4 class="mb-2" for="title">Region Name:</h4>
 
                                         </div>
-                                        <form onSubmit={(e) => script1(e)}>
+                                        <form onSubmit={(e) => script3(e)}>
                                             <div>
                                                 <input type="text" class="form-control"></input>
                                             </div>
@@ -90,4 +90,4 @@ function Graph1() {
     );
 }
 
-export default Graph1;
+export default Graph3;
