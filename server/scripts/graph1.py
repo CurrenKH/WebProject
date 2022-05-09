@@ -42,7 +42,9 @@ mylabels = ["True", "False"]
 plt.pie(y, labels = mylabels)
 plt.legend()
 
-random_id = str(uuid.uuid1())
+#random_id = str(uuid.uuid1())
+random_id = sys.argv[2]
+
 graphId = random_id + '.jpg'
 plt.savefig('public/graphs/type1/' + graphId)
 

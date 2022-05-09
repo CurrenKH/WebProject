@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
-import { useState, useLayoutEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from 'react-router';
 
 function Register () {
@@ -28,8 +28,8 @@ function Register () {
                 },
                 body: JSON.stringify(user)
             })
-            const data = await res.json()
             navigate('/login')
+            const data = await res.json()
             setErrorMessage(data.message)
         } catch (err) {
             setErrorMessage(err)

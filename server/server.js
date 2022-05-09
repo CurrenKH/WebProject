@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 //const { database } = require('./database');
 const { createUser, signIn } = require('./services/user.service');
-const { getAllGraphs } = require('./services/graph.service');
+const { getAllGraphs, deleteGraph } = require('./services/graph.service');
 const path = require('path');
 const { startPythonScript1 } = require('./services/python1.service');
 const { startPythonScript2 } = require('./services/python2.service');
@@ -38,7 +38,6 @@ app.get('/graphs', async function(req, res) {
 app.post('/register', async function(req, res) {
 
     const user = req.body
-        //console.log('username: ', username);
     if (!user.username || !user.password) {
         res.status(400)
         res.send('Missing username or password')
@@ -66,6 +65,21 @@ app.post('/login', async function(req, res) {
     const result = await signIn(user)
 
     res.send(result.body)
+})
+
+app.delete('/delete', async function (req, res){
+
+    const number = req.body.number
+    await deleteGraph(number)
+
+    if (!number) {
+        res.status(400)
+        res.send('Graph not found')
+
+        return
+    }
+
+    res.send('Deleted')
 })
 
 app.post('/python1', async function(req, res) {

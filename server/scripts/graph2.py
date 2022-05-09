@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 import uuid
+import webbrowser
 
 myclient = MongoClient("mongodb://cfortier:cfortier123@cluster0-shard-00-00.gjdrt.mongodb.net:27017,cluster0-shard-00-01.gjdrt.mongodb.net:27017,cluster0-shard-00-02.gjdrt.mongodb.net:27017/test?authSource=admin&replicaSet=atlas-e0cio3-shard-0&readPreference=primary&ssl=true")
 
@@ -43,3 +44,5 @@ plt.ylabel("Count")
 random_id = str(uuid.uuid1())
 graphId = random_id + '.jpg'
 plt.savefig('public/graphs/type2/' + graphId)
+
+webbrowser.open('http://localhost:8080/static/graphs/type2/' + graphId, new=2)

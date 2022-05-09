@@ -4,10 +4,14 @@ import { Trash } from "react-bootstrap-icons";
 import * as axios from 'axios';
 import '../App.css';
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router';
 
 
 function Graphs() {
+
+    const [errorMessage, setErrorMessage] = useState("")
     const [graphData, setGraphData] = useState([])
+
     // useEffect is called upon page load
     useEffect(() => {
         async function fetchGraphData() {
@@ -20,6 +24,31 @@ function Graphs() {
 
     const clearLocalStorage = () => {
         localStorage.clear();
+    }
+
+    function refreshPage(){ 
+        window.location.reload(); 
+    }
+
+    async function deleteGraph(number) {
+
+        const numberData = {
+            number: number
+        }
+
+        try {
+            const res = await fetch("http://localhost:8080/delete", {
+                method: "DELETE",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify(numberData)
+            })
+            const data = await res.json()
+            setErrorMessage(data.message)
+        } catch (err) {
+            setErrorMessage(err)
+        }
     }
 
     return (
@@ -53,9 +82,9 @@ function Graphs() {
                                         <td>{graph.time}</td>
                                         <td>
                                             <button className="btn btn-primary px-3 mx-2">
-                                                <Link to={"/static/graphs/" + graph.graphId}>Open</Link>
+                                                <Link to={"/viewer?graphId=" + graph.graphNumber}>Open</Link>
                                             </button>
-                                            <button className="btn btn-danger">
+                                            <button className="btn btn-danger" onClick={(e)=> {deleteGraph(graph.number); refreshPage();}}>
                                                 <Trash></Trash>
                                             </button>
                                         </td>

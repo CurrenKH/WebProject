@@ -16,10 +16,14 @@ mydb = myclient["sample_supplies"]
 collection = mydb.sales
 
 
+if sys.argv[1] == "True":
+    sys.argv[1] = True
+
+if sys.argv[1] == "False":
+    sys.argv[1] = False
+
 var1 = sys.argv[1]
 var2 = "In store"
-
-
 
 
 df4 = pd.DataFrame(list(collection.aggregate([{"$match":
@@ -68,16 +72,25 @@ df6 = pd.DataFrame(list(collection.aggregate([{"$match":
 df6.columns = df6.columns.str.replace('_id', 'year')
 
 
-result2 = pd.merge(df4, df5[['year', 'phone']], on="year", how="right")
+#result2 = pd.merge(df4, df5[['year', 'phone']], on="year", how="right")
+
+#result3 = pd.merge(result2, df6[["year", "online"]], on="year", how="right")
 
 
-result3 = pd.merge(result2, df6[["year", "online"]], on="year", how="right")
+
+result2 = pd.merge(df4, df5, left_index=True,
+                  right_index=True,
+                  how='left')
+
+result3 = pd.merge(result2, df6, left_index=True,
+                  right_index=True,
+                  how='left')
 
 
-if var1 == True:
+if sys.argv[1] == True:
     titleVar = "used"
 
-if var1 == False:
+if sys.argv[1] == False:
     titleVar = "did not use"
 
 
@@ -86,18 +99,17 @@ line1 = list(result3['in store'])
 line2 = list(result3['phone'])
 line3 = list(result3['online'])
 
-plt.title("Purchase method by customers \n that " + sys.argv[1] + " a coupon", fontsize='x-large', fontweight="bold")
+plt.title("Purchase method by customers \n that " + titleVar + " a coupon", fontsize='x-large', fontweight="bold")
 plt.xticks([2013, 2014, 2015, 2016, 2017],['2013','2014','2015','2016', '2017'])
 plt.xlabel("Year")
 plt.ylabel("Count")
 plt.plot(year,line1, 'y')
 plt.plot(year,line2, 'b')
 plt.plot(year,line3, 'g')
-fig = plt.figure()
-fig.patch.set_facecolor('xkcd:mint green')
 
 random_id = str(uuid.uuid1())
 graphId = random_id + '.jpg'
+
 plt.savefig('public/graphs/type4/' + graphId)
 
 webbrowser.open('http://localhost:8080/static/graphs/type4/' + graphId, new=2)

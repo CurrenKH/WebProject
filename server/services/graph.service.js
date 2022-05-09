@@ -1,6 +1,5 @@
 require('dotenv').config();
 const bodyParser = require('body-parser')
-
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { database } = require('../database');
@@ -15,6 +14,13 @@ const collection = database.collection("graphs")
     }
 
 
+    async function deleteGraph(number) {
+
+        const deleteGraph = await collection.deleteOne({ number: number });
+        return deleteGraph;
+    }
+
     module.exports = {
-        getAllGraphs
+        getAllGraphs,
+        deleteGraph
     }

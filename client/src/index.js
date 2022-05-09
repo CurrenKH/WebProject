@@ -14,6 +14,7 @@ import Graph1 from './views/Graph1';
 import Graph2 from './views/Graph2';
 import Graph3 from './views/Graph3';
 import Graph4 from './views/Graph4';
+import Viewer from './views/Viewer';
 
 
 export default function App() {
@@ -33,6 +34,7 @@ export default function App() {
             <Route path="graph2" element={<Graph2 />} />
             <Route path="graph3" element={<Graph3 />} />
             <Route path="graph4" element={<Graph4 />} />
+            <Route path="viewer" element={<Viewer />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

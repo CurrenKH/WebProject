@@ -27,7 +27,7 @@ function Graph2() {
                 body: JSON.stringify(method)
             })
             const data = await res.json()
-            navigate('/type')
+            navigate('/graphs')
             setErrorMessage(data.message)
         } catch (err) {
             setErrorMessage(err)
@@ -66,7 +66,12 @@ function Graph2() {
                                             <div>
                                                 <input type="text" class="form-control"></input>
                                             </div>
-                                            <label class="mb-2">Choices: Online, Phone, In person</label>
+                                            <div class="mt-2">
+                                                <h5 class="mb-2" for="title">Choices:</h5>
+                                            </div>
+                                            <table>
+                                                <tr>Online &ensp; Phone &ensp; In person</tr>
+                                            </table>
                                             <div class="align-items-center d-flex mb-3">
                                                 <button type="submit" class="btn btn-primary ms-auto my-2">
                                                     Create

@@ -5,9 +5,11 @@ const { database } = require('../database');
 const collection = database.collection("graphs")
 
 async function startPythonScript1(city) {
+    
+    var randomNumber = Math.floor((Math.random() * 10000) + 1);
 
     try {
-        const { stdout, stderr } = await exec('python scripts/graph1.py ' + '"' + city + '"');
+        const { stdout, stderr } = await exec('python scripts/graph1.py ' + '"' + city + '"' + " " + randomNumber);
         console.log('stdout: ', stdout);
         console.log('stderr: ', stderr);
     } catch (err) {
@@ -28,10 +30,7 @@ async function startPythonScript1(city) {
         number++;
     }
 
-   // const graphText = "Graph "
-    //const count = graphText + number
-
-    await collection.insertOne({ number, type, time });
+    await collection.insertOne({ number, type, time, randomNumber });
 
     return {
         status: 201,
