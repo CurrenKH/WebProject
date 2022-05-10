@@ -40,7 +40,7 @@ function Viewer() {
                                                     <div class="col-md-6"></div>
 
                                                     <a href="http://localhost:3000/viewer">
-                                                        <img src="http://localhost:8080/static/graphs/type1/6177.jpg" width="360"></img>
+                                                        <img src="https://i.imgur.com/I86rTVl.jpeg" width="360"></img>
                                                     </a>
                                                 </div>
                                             </div>
