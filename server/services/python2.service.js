@@ -6,6 +6,8 @@ const collection = database.collection("graphs")
 
 async function startPythonScript2(method) {
 
+    var randomNumber = Math.floor((Math.random() * 10000) + 1);
+
     try {
         const { stdout, stderr } = await exec('python scripts/graph2.py ' + '"' + method + '"');
         console.log('stdout: ', stdout);
@@ -27,7 +29,7 @@ async function startPythonScript2(method) {
         number++;
     }
 
-    await collection.insertOne({ number, type, time });
+    await collection.insertOne({ number, type, time, randomNumber });
 
     return {
         status: 201,
